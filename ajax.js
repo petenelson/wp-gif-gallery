@@ -1,16 +1,24 @@
 jQuery(document).ready(function() {
 
 	// fill in variables from the wp_localize_script call
-	jQuery('.forum-pics-search-form').attr('action', pete_wpaustin_wpajax.admin_ajax_url);
-	jQuery('.forum-pics-search-form .ajax-action').val(pete_wpaustin_wpajax.ajax_action);
-	jQuery('.forum-pics-search-form .parent-post-id').val(pete_wpaustin_wpajax.parent_post_id);
+	jQuery('.forum-pics-search-form').attr('action', pn_wpaustin_wpajax.admin_ajax_url);
+	jQuery('.forum-pics-search-form .ajax-action').val(pn_wpaustin_wpajax.ajax_action);
+	jQuery('.forum-pics-search-form .parent-post-id').val(pn_wpaustin_wpajax.parent_post_id);
 
 	jQuery('.forum-pics-search-form .search-for').focus();
 
 
-	jQuery('.forum-pics-upload-form').attr('action', pete_wpaustin_wpajax.admin_ajax_url);
-	jQuery('.forum-pics-upload-form .ajax-action').val(pete_wpaustin_wpajax.ajax_action_upload);
-	jQuery('.forum-pics-upload-form .parent-post-id').val(pete_wpaustin_wpajax.parent_post_id);
+	jQuery('.forum-pics-upload-form').attr('action', pn_wpaustin_wpajax.admin_ajax_url);
+	jQuery('.forum-pics-upload-form .ajax-action').val(pn_wpaustin_wpajax.ajax_action_upload);
+	jQuery('.forum-pics-upload-form .parent-post-id').val(pn_wpaustin_wpajax.parent_post_id);
+
+	jQuery('.forum-pics-search-form .use-api').change(function() {
+		if ( jQuery(this).is(':checked') ) {
+			jQuery( '.forum-pics-search-form').attr('action', pn_wpaustin_wpajax.ajax_action_api )
+		} else {
+			jQuery( '.forum-pics-search-form').attr('action', pn_wpaustin_wpajax.admin_ajax_url )
+		}
+	});
 
 
 	jQuery('.forum-pics-show-upload').click(function(e) {
