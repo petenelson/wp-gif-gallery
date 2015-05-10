@@ -35,6 +35,23 @@ function pn_wpaustin_ajax_image_search() {
 
 function pn_wpaustin_get_image_search_results() {
 
+	$query_args = array(
+		'post_type'      => 'attachment',
+		'post_status'    => 'inherit', // required for attachments
+		'posts_per_page' => -1, // everything
+		's'              => isset( $_REQUEST['s'] ) ? $_REQUEST['s'] : '',
+		'post_parent'    => isset( $_REQUEST['parent_post_id'] ) ? intval( $_REQUEST['parent_post_id'] ) : 0
+	);
+
+
+	// check for a previous search in the cache
+	$cache_key = md5( json_encode( $query_args ) );
+	$output = wp_cache_get( $cache_key, 'wpaustin' );
+	if ( ! empty( $output) ) {
+		return $output;
+	}
+
+
 	// default return values
 	$output = new stdClass();
 	$output->number_of_matches = 0;
@@ -45,16 +62,7 @@ function pn_wpaustin_get_image_search_results() {
 
 	// use WP_Query to search for pics attached to this post (not query_posts!)
 	global $post;
-	$query = new WP_Query(
-		array(
-			'post_type' => 'attachment',
-			'post_status' => 'inherit', // required for attachments
-			'posts_per_page'=> -1, // everything
-			's' => isset( $_REQUEST['s'] ) ? $_REQUEST['s'] : '',
-			'post_parent' => isset( $_REQUEST['parent_post_id'] ) ? intval( $_REQUEST['parent_post_id'] ) : 0
-		)
-	);
-
+	$query = new WP_Query( $query_args );
 
 	// gather up the IDs and permalinks
 	if ( $query->have_posts() ) {
@@ -65,8 +73,9 @@ function pn_wpaustin_get_image_search_results() {
 			$output->post_ids[] = $post->ID;
 
 			// for a single post, get the permalink so the page can redirect to it immediately
-			if ( 1 === $output->number_of_matches )
+			if ( 1 === $output->number_of_matches ) {
 				$output->permalink = get_permalink( $post->ID );
+			}
 
 		}
 	}
@@ -79,6 +88,9 @@ function pn_wpaustin_get_image_search_results() {
 	if ( $output->number_of_matches > 0 ) {
 		$output->gallery_html = do_shortcode( '[gallery link="post" columns="5" ids="' . implode( ',', $output->post_ids ) . '"]' );
 	}
+
+	// store this for later
+	wp_cache_set( $cache_key, $output, 'wpaustin', DAY_IN_SECONDS * 1 );
 
 	return $output;
 
