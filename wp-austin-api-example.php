@@ -48,6 +48,7 @@ function pn_wpaustin_get_image_search_results() {
 	$cache_key = md5( json_encode( $query_args ) );
 	$output = wp_cache_get( $cache_key, 'wpaustin' );
 	if ( ! empty( $output) ) {
+		$output->cache_hit = true;
 		return $output;
 	}
 
@@ -58,6 +59,7 @@ function pn_wpaustin_get_image_search_results() {
 	$output->gallery_html = '';
 	$output->post_ids = array();
 	$output->permalink = '';
+	$output->cache_hit = false;
 
 
 	// use WP_Query to search for pics attached to this post (not query_posts!)
