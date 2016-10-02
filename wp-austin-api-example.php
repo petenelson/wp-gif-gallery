@@ -1,16 +1,7 @@
 <?php
-/*
-Plugin Name: Pete's wp-ajax sample
-Plugin URI: http://petenelson.com/
-Description: For the WordPress API meetup
-Author: Pete Nelson (@GunGeekATX)
-Author URI: https://twitter.com/GunGeekATX
-*/
 
-/*
-Standard AJAX
-http://codex.wordpress.org/AJAX_in_Plugins
-*/
+exit;
+
 
 define( 'PN_WPAUSTIN_WPAJAX_ACTION', 'pn-wpaustin-image-search' );
 define( 'PN_WPAUSTIN_WPAJAX_ACTION_UPLOAD', 'pn-wpaustin-image-upload' );
