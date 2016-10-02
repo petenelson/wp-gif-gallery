@@ -10,7 +10,7 @@
 
 			<figure class="gallery-item">
 				<div class="gallery-icon landscape">
-					<a href="{{ image.src }}">
+					<a href="{{ image.permalink }}">
 						<img width="{{ image.thumbnail.width }}" height="{{ image.thumbnail.height }}" src="{{ image.thumbnail.src }}" class="attachment-thumbnail size-thumbnail" alt="{{ image.alt }}" />
 					</a>
 				</div>
