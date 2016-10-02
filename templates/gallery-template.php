@@ -1,4 +1,4 @@
-<input type="text" class="regular-text wp-backbone-gallery-search" />
+<input type="text" class="regular-text wp-backbone-gallery-search" placeholder="<?php echo esc_attr_e( 'Search' ); ?>" />
 
 <div id="wp-backbone-gallery-container"></div>
 
