@@ -1,10 +1,12 @@
+<input type="text" class="regular-text wp-backbone-gallery-search" />
+
 <div id="wp-backbone-gallery-container"></div>
 
 <script type="text/template" id="tmpl-wp-backbone-gallery">
 
 	<div class="gallery gallery-columns-{{ data.columns }} gallery-size-thumbnail">
 
-		<# _.each( data.images, function( image ) { #>
+		<# _.each( data.filtered_images, function( image ) { #>
 
 			<figure class="gallery-item">
 				<div class="gallery-icon landscape">
