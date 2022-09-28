@@ -1,28 +1,42 @@
-<input type="text" class="regular-text wp-backbone-gallery-search" placeholder="<?php echo esc_attr_e( 'Search' ); ?>" />
+<?php 
 
-<div id="wp-backbone-gallery-container"></div>
+	// echo '<pre>';
+	// echo wp_json_encode( $data, JSON_PRETTY_PRINT );
+	// echo '</pre>';
 
-<script type="text/template" id="tmpl-wp-backbone-gallery">
+?>
 
-	<div class="gallery gallery-columns-{{ data.columns }} gallery-size-thumbnail">
+<div id="wp-gif-gallery-container">
 
-		<# _.each( data.filtered_images, function( image ) { #>
+	<p>
+		<input type="text" class="regular-text wp-gif-gallery-search" placeholder="<?php echo esc_attr_e( 'Search' ); ?>" />
+	</p>
 
-			<figure class="gallery-item">
+	<div class="gallery <?php echo sanitize_html_class( 'gallery-columns-' . $data['columns'] ); ?> gallery-size-thumbnail">
+
+		<?php foreach( $data['images'] as $image ): ?>
+
+			<figure class="gallery-item" data-title="<?php echo esc_attr( $image['title'] ); ?>" data-caption="<?php echo esc_attr( $image['caption'] ); ?>" data-slug="<?php echo esc_attr( $image['slug'] ); ?>" data-alt="<?php echo esc_attr( $image['alt'] ); ?>">
 				<div class="gallery-icon landscape">
-					<a href="{{ image.permalink }}">
-						<img width="{{ image.thumbnail.width }}" height="{{ image.thumbnail.height }}" src="{{ image.thumbnail.src }}" class="attachment-thumbnail size-thumbnail" alt="{{ image.alt }}" />
+					<a href="<?php echo esc_url( $image['src'] ); ?>">
+						<img
+							width="<?php echo esc_attr( $image['thumbnail']['width'] ); ?>"
+							height="<?php echo esc_attr( $image['thumbnail']['height'] ); ?>"
+							src="<?php echo esc_url( $image['thumbnail']['src'] ); ?>"
+							class="attachment-thumbnail size-thumbnail"
+							alt="<?php echo esc_attr( $image['alt'] ); ?>"
+						/>
 					</a>
 				</div>
 				<figcaption class="wp-caption-text gallery-caption">
-					{{ image.title }}
-					<# if ( '' !== image.gifv_url ) { #>
-						- <a href="{{ image.gifv_url }}"><?php esc_html_e( 'GIFV', 'wp-backbone-gallery' ); ?></a>
-					<# } #>
+					<?php echo esc_html( $image['title'] ); ?>
+					<?php if ( ! empty( $image['gifv_url'] ) ): ?>
+						- <a href="<?php echo esc_url( $image['gifv_url'] ); ?>"><?php esc_html_e( 'GIFV', 'wp-gif-gallery' ); ?></a>
+					<?php endif; ?>
 				</figcaption>
 			</figure>
 
-		<# } ); // _.each #>
-	</div>
+		<?php endforeach; ?>
 
-</script>
+	</div>
+</div>
