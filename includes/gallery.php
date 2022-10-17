@@ -1,6 +1,6 @@
 <?php
 
-namespace WP_Backbone_Gallery;
+namespace WP_GIF_Gallery;
 
 /**
  * Setup WordPress hooks and filters
@@ -8,27 +8,25 @@ namespace WP_Backbone_Gallery;
  * @return void
  */
 function setup() {
-
 	add_action( 'init', __NAMESPACE__ . '\register_scripts' );
-
-	add_shortcode( 'wp_backbone_gallery', __NAMESPACE__ . '\get_backbone_gallery_html', 10, 2 );
+	add_shortcode( 'wp_gif_gallery', __NAMESPACE__ . '\get_gallery_html', 10, 2 );
 }
 
 function get_version() {
-	return '1.0.0';
+	return '1.1.0';
 }
 
 function register_scripts() {
 	wp_register_script(
-		'wp-backbone-gallery',
-		WP_BACKBONE_GALLERY_URL . 'assets/js/wp-backbone-gallery.js',
-		array( 'jquery', 'wp-util', 'backbone', 'underscore' ),
+		'wp-gif-gallery',
+		WP_GIF_GALLERY_URL . 'assets/js/wp-gif-gallery.js',
+		[],
 		get_version(),
 		true
 	);
 }
 
-function get_backbone_gallery_html( $args, $content ) {
+function get_gallery_html( $args, $content ) {
 
 	$args = wp_parse_args( $args, array(
 		'columns'          => 5,
@@ -36,21 +34,20 @@ function get_backbone_gallery_html( $args, $content ) {
 		)
 	);
 
-	// Include the Backbone template.
+	$data = get_gallery_data( $args );
+
+	// Include the HTML template.
 	ob_start();
-	include_once WP_BACKBONE_GALLERY_ROOT . 'templates/gallery-template.php';
+	include_once WP_GIF_GALLERY_ROOT . 'templates/gallery-template.php';
 	$html = ob_get_clean();
 
 	// Enqueue the plugin script.
-	wp_enqueue_script( 'wp-backbone-gallery' );
-
-	// Localize the data for the plugin script.
-	wp_localize_script( 'wp-backbone-gallery', 'WP_Backbone_Gallery_Data', get_gallery_script_data( $args ) );
+	wp_enqueue_script( 'wp-gif-gallery' );
 
 	return $html;
 }
 
-function get_gallery_script_data( $args ) {
+function get_gallery_data( $args ) {
 
 	$data = array(
 		'columns' => $args['columns'],
@@ -78,6 +75,7 @@ function get_gallery_images( $args ) {
 		$img = array(
 			'id'          => $image->ID,
 			'title'       => $image->post_title,
+			'alt'         => trim( get_post_meta( $image->ID, '_wp_attachment_image_alt', true ) ),
 			'slug'        => $image->post_name,
 			'permalink'   => get_permalink( $image->ID ),
 			'src'         => '',
