@@ -1,11 +1,3 @@
-<?php 
-
-	// echo '<pre>';
-	// echo wp_json_encode( $data, JSON_PRETTY_PRINT );
-	// echo '</pre>';
-
-?>
-
 <div id="wp-gif-gallery-container">
 
 	<p>
