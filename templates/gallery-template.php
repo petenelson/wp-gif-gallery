@@ -17,6 +17,7 @@
 							src="<?php echo esc_url( $image['thumbnail']['src'] ); ?>"
 							class="attachment-thumbnail size-thumbnail"
 							alt="<?php echo esc_attr( $image['alt'] ); ?>"
+							data-long-press-delay="500"
 						/>
 					</a>
 				</div>

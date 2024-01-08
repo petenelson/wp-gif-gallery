@@ -1,0 +1,14 @@
+{
+  "name": "wp-gif-gallery",
+  "version": "1.0.0",
+  "description": "Plugin to display a gallery of images attached to the current page, powered by native JS, with a search filter.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "long-press-event": "^2.4.6"
+  }
+}
