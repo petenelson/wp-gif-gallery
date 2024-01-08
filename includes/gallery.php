@@ -24,7 +24,7 @@ function setup() {
 }
 
 function get_version() {
-	return '1.2.1';
+	return '1.2.2';
 }
 
 function register_scripts() {

@@ -41,6 +41,10 @@ window.addEventListener('DOMContentLoaded', () => {
 		if (target.classList.contains('attachment-thumbnail') && target.parentElement.classList.contains('image-link')) {
 			e.preventDefault();
 			navigator.clipboard.writeText(target.parentElement.href);
+
+			document.querySelectorAll('.attachment-thumbnail').forEach( i => i.classList.remove('image-copied'));
+
+			target.classList.add('image-copied');
 		}
 	});
 });

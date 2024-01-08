@@ -1,3 +1,9 @@
+<style>
+	.image-copied {
+		padding: 12px;
+	}
+</style>
+
 <div id="wp-gif-gallery-container">
 
 	<p>
