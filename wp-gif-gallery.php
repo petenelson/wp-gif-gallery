@@ -2,7 +2,7 @@
 /**
 Plugin Name: GIF Gallery
 Description: GIF gallery shortcode with JS search.
-Version:     1.2.2
+Version:     1.2.3
 Author:      Pete Nelson <a href="https://twitter.com/CodeGeekATX">(@CodeGeekATX)</a>
 Author URI:  https://petenelson.io
 Text Domain: wp-gif-gallery

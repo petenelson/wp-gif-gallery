@@ -5,6 +5,10 @@ window.addEventListener('DOMContentLoaded', () => {
 		return;
 	}
 
+	window.oncontextmenu = function() {
+		return false;
+	}
+
 	const search = container.querySelector('.wp-gif-gallery-search');
 	search.focus();
 
