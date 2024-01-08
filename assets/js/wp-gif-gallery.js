@@ -37,8 +37,14 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
 	document.addEventListener('long-press', function(e) {
-		if (e.target.classList.contains('attachment-thumbnail')) {
-			navigator.clipboard.writeText(e.target.src);
+		const target = e.target;
+		if (target.classList.contains('attachment-thumbnail') && target.parentElement.classList.contains('image-link')) {
+			e.preventDefault();
+			navigator.clipboard.writeText(target.parentElement.href);
+
+			document.querySelectorAll('.attachment-thumbnail').forEach( i => i.classList.remove('image-copied'));
+
+			target.classList.add('image-copied');
 		}
 	});
 });

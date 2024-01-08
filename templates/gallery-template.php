@@ -1,3 +1,9 @@
+<style>
+	.image-copied {
+		padding: 12px;
+	}
+</style>
+
 <div id="wp-gif-gallery-container">
 
 	<p>
@@ -10,7 +16,7 @@
 
 			<figure class="gallery-item" data-title="<?php echo esc_attr( $image['title'] ); ?>" data-caption="<?php echo esc_attr( $image['caption'] ); ?>" data-slug="<?php echo esc_attr( $image['slug'] ); ?>" data-alt="<?php echo esc_attr( $image['alt'] ); ?>">
 				<div class="gallery-icon landscape">
-					<a href="<?php echo esc_url( $image['src'] ); ?>">
+					<a href="<?php echo esc_url( $image['src'] ); ?>" class="image-link">
 						<img
 							width="<?php echo esc_attr( $image['thumbnail']['width'] ); ?>"
 							height="<?php echo esc_attr( $image['thumbnail']['height'] ); ?>"
