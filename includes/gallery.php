@@ -24,6 +24,14 @@ function register_scripts() {
 		get_version(),
 		true
 	);
+
+	wp_register_script(
+		'wp-gif-gallery-long-press',
+		WP_GIF_GALLERY_URL . 'assets/js/long-press-event.min.js',
+		[],
+		get_version(),
+		true
+	);
 }
 
 function get_gallery_html( $args, $content ) {
@@ -43,6 +51,7 @@ function get_gallery_html( $args, $content ) {
 
 	// Enqueue the plugin script.
 	wp_enqueue_script( 'wp-gif-gallery' );
+	wp_enqueue_script( 'wp-gif-gallery-long-press' );
 
 	return $html;
 }
@@ -61,13 +70,18 @@ function get_gallery_images( $args ) {
 
 	$images = array();
 
-	$query = new \WP_Query( array(
-		'post_type'        => 'attachment',
-		'post_status'      => 'inherit',
-		'posts_per_page'   => 500,
-		'post_parent'      => $args['post_parent'],
-		'post_mime_type'   => array( 'image/gif', 'image/jpeg', 'image/png' ),
-		)
+	$query = new \WP_Query(
+		[
+			'post_type'        => 'attachment',
+			'post_status'      => 'inherit',
+			'posts_per_page'   => 500,
+			'post_parent'      => $args['post_parent'],
+			'post_mime_type'   => [
+				'image/gif',
+				'image/jpeg',
+				'image/png',
+			],
+		]
 	);
 
 	foreach( $query->posts as $image ) {

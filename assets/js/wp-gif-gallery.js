@@ -34,4 +34,11 @@ window.addEventListener('DOMContentLoaded', () => {
 			}
 		});
 	});
+
+
+	document.addEventListener('long-press', function(e) {
+		if (e.target.classList.contains('attachment-thumbnail')) {
+			navigator.clipboard.writeText(e.target.src);
+		}
+	});
 });
