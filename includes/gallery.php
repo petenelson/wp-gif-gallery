@@ -3,13 +3,24 @@
 namespace WP_GIF_Gallery;
 
 /**
+ * Quickly provide a namespaced way to get functions.
+ *
+ * @param string $function Name of function in namespace.
+ * @return string
+ */
+function n( $function ) {
+	return __NAMESPACE__ . "\\$function";
+}
+
+/**
  * Setup WordPress hooks and filters
  *
  * @return void
  */
 function setup() {
-	add_action( 'init', __NAMESPACE__ . '\register_scripts' );
-	add_shortcode( 'wp_gif_gallery', __NAMESPACE__ . '\get_gallery_html', 10, 2 );
+	add_action( 'init', n( 'register_scripts' ) );
+	add_shortcode( 'wp_gif_gallery', n( 'get_gallery_html', 10, 2 ) );
+	add_action( 'add_attachment', n( 'attach_to_gif_page' ) );
 }
 
 function get_version() {
@@ -121,3 +132,25 @@ function get_gallery_images( $args ) {
 	return $images;
 }
 
+/**
+ * Attaches a newly-added GIF to the GIF page.
+ *
+ * @param  int $attachment_id The attachment ID.
+ * @return void
+ */
+function attach_to_gif_page( $attachment_id ) {
+
+	if ( 'image/gif' === get_post_mime_type( $attachment_id ) ) {
+
+		$page = get_page_by_path( '/gifs' );
+
+		if ( $page instanceof \WP_Post ) {
+			wp_update_post(
+				[
+					'ID' => $attachment_id,
+					'post_parent' => $page->ID,
+				]
+			);
+		}
+	}
+}
